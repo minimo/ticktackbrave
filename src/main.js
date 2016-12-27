@@ -1,53 +1,38 @@
 /*
+ *  main.js
+ *  2016/12/27
+ *  @auther minimo  
+ *  This Program is MIT license.
+ */
 
-  Tiledmapサンプル
+//定数
+//デバッグフラグ
+DEBUG = false;
 
-*/
-
+//スクリーンサイズ
 var SC_W = 320;
-var SC_H = 320;
+var SC_H = 640;
 
-var ASSETS = {
-  image: {
-    "player": "assets/chara01_a1.png",
-  },
-  //LoadingSceneで読み込む場合の設定
-  tmx: {
-    "map": "assets/map.tmx",
-  }
+//マップパネル数
+MAP_W = 5;
+MAP_H = 5;
+
+//パネルサイズ
+PN_SIZE = 60;
+PN_W = PN_SIZE;
+PN_H = PN_SIZE;
+PN_W_HALF = PN_W/2;
+PN_H_HALF = PN_H/2;
+
+//パネル位置オフセット    
+PN_OFFX = 10+PN_W/2;
+PN_OFFY = 60+PN_H/2;
+
+//インスタンス
+var app;
+
+window.onload = function() {
+    app = ttb.Application();
+    app.run();
+    app.enableStats();
 };
-
-phina.define("SceneFlow", {
-  superClass: "phina.game.ManagerScene",
-
-  init: function() {
-    this.superInit({
-      startLabel: "load",
-      scenes: [{
-        label: "load",
-        className: "phina.game.LoadingScene",
-        arguments: {
-          assets: ASSETS,
-        },
-        nextLabel: "main",
-      },{
-        label: "main",
-        className: "MainScene",
-      }],
-    });
-  }
-});
-
-phina.main(function() {
-  app = phina.game.GameApp({
-    width: SC_W,
-    height: SC_H,
-    backgroundColor: "#ccc",
-  });
-  app.fps = 60;
-  app.enableStats();
-
-  app.replaceScene(SceneFlow());
-
-  app.run();
-});

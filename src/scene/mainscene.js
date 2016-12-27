@@ -1,12 +1,12 @@
 /*
  *  MainScene.js
- *  2015/09/08
+ *  2016/12/27
  *  @auther minimo  
  *  This Program is MIT license.
  */
 
-phina.define("phinaApp.MainScene", {
-    superClass: 'phina.display.CanvasScene',
+phina.define("ttb.MainScene", {
+    superClass: 'phina.display.DisplayScene',
 
     _member: {
         //エンドレスモード
@@ -100,13 +100,13 @@ phina.define("phinaApp.MainScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
 
         //レイヤー準備
-        this.lowerLayer = phina.display.CanvasElement().addChildTo(this);
-        this.panelLayer = phina.display.CanvasElement().addChildTo(this);
-        this.playerLayer = phina.display.CanvasElement().addChildTo(this);
-        this.itemLayer = phina.display.CanvasElement().addChildTo(this);
+        this.lowerLayer = phina.display.DisplayElement().addChildTo(this);
+        this.panelLayer = phina.display.DisplayElement().addChildTo(this);
+        this.playerLayer = phina.display.DisplayElement().addChildTo(this);
+        this.itemLayer = phina.display.DisplayElement().addChildTo(this);
 
         //プレイヤー準備        
-        this.player = phinaApp.Player()
+        this.player = ttb.Player()
             .addChildTo(this.playerLayer)
             .setPosition(PN_OFFX, PN_OFFY);
         this.player.visible = false;
@@ -154,11 +154,9 @@ phina.define("phinaApp.MainScene", {
         }
 
         //ステージデータコピー
-        this.stageData = phinaApp.stageData[this.stageNumber-1];
+        this.stageData = ttb.stageData[this.stageNumber-1];
 
         if (!this.retryStage) {
-            app.playBGM("bgm"+this.stageNumber);
-//            app.pushScene(phinaApp.TutorialScene(this.stageNumber));
         }
 
         //通過パネル数初期化
@@ -228,7 +226,7 @@ phina.define("phinaApp.MainScene", {
 
         //スタート演出初期化
         //ステージ開始時演出用
-        this.egg = phinaApp.Egg()
+        this.egg = ttb.Egg()
             .setPosition(sx, sy)
             .addChildTo(this.playerLayer);
         this.egg.player = this.player;
@@ -276,7 +274,7 @@ phina.define("phinaApp.MainScene", {
     addPanel: function(x, y, ptn) {
         if (this.checkMapPanel(x, y)) return null;
 
-        var p = phinaApp.Panel().addChildTo(this.panelLayer);
+        var p = ttb.Panel().addChildTo(this.panelLayer);
         p.x = x*PN_W+PN_OFFX;
         p.y = y*PN_H+PN_OFFY;
         p.mapX = x;
@@ -292,7 +290,7 @@ phina.define("phinaApp.MainScene", {
         ptn = ptn | 0;
         var p = this.checkMapPanel(x, y);
         if (p == null || p.item != null) return null;
-        p.item = phinaApp.Item(p, ptn).addChildTo(this.itemLayer);
+        p.item = ttb.Item(p, ptn).addChildTo(this.itemLayer);
     },
 
     //スクリーン座標上のパネル判定

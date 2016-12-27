@@ -1,11 +1,11 @@
 /*
  *  Panel.js
- *  2014/06/04
+ *  2016/12/27
  *  @auther minimo  
  *  This Program is MIT license.
  */
 
-phina.define("phinaApp.Panel", {
+phina.define("ttb.Panel", {
     superClass: "phina.display.Sprite",
 
     _member: {
@@ -49,7 +49,7 @@ phina.define("phinaApp.Panel", {
 
     init: function() {
         //親クラスの初期化
-        this.superInit("panel", PN_W, PN_H);
+        this.superInit("panel1", PN_W, PN_H);
         this.$extend(this._member);
 
         this.id = -1;
