@@ -41,7 +41,11 @@ phina.define("ttb.Application", {
     backgroundColor: 'rgba(0, 0, 0, 1)',
 
     init: function(param) {
-        this.superInit(param);
+        param = param || {};
+        this.superInit(param.$safe({
+            width: SC_W,
+            height: SC_H,
+        }));
 
         //設定情報の読み込み
         this.loadConfig();

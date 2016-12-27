@@ -36,8 +36,7 @@ phina.define("ttb.Panel", {
         //ラベル用パラメータ
         labelParam: {
             fill: "white",
-            stroke: true,
-            strokeColor: 'black',
+            stroke: "black",
             strokeWidth: 3,
 
             fontFamily: "KS-Kohichi",
@@ -111,7 +110,7 @@ phina.define("ttb.Panel", {
         this.scene.passPanel++;
         this.scene.passPanelTotal++;
 
-        var lb = phina.display.Label("1000", this.labelParam)
+        var lb = phina.display.Label(this.labelParam.$safe({text: "1000"}))
             .addChildTo(this.scene)
             .setPosition(this.x, this.y);
         lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});

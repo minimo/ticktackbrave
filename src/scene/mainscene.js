@@ -60,8 +60,7 @@ phina.define("ttb.MainScene", {
 
         labelParam: {
             fill: "white",
-            stroke: true,
-            strokeColor: 'black',
+            stroke: "black",
             strokeWidth: 3,
 
             fontFamily: "KS-Kohichi",
@@ -71,11 +70,11 @@ phina.define("ttb.MainScene", {
         },
         scorelabelParam: {
             fill: "white",
-            stroke: true,
+            stroke: "black",
             strokeColor: 'black',
             strokeWidth: 3,
 
-            fontFamily: "KS-Kohichi",
+            fontFamily: "UbuntuMono",
             align: "center",
             baseline: "middle",
             fontSize: 20,
@@ -113,11 +112,11 @@ phina.define("ttb.MainScene", {
 
         //スコア表示
         var that = this;
-        var lb = this.scoreLabel = phina.display.Label("得点:", this.scorelabelParam)
+        var lb = this.scoreLabel = phina.display.Label(this.scorelabelParam)
             .addChildTo(this)
             .setPosition(8, 32);
         lb.update = function() {
-            this.text = "得点:"+that.score;
+            this.text = "SCORE: "+that.score;
         }
 
         //目隠し
@@ -242,16 +241,15 @@ phina.define("ttb.MainScene", {
         var that = this;
         var param = {
             fill: "white",
-            stroke: true,
-            strokeColor: 'black',
-            strokeWidth: 5,
+            stroke: "black",
+            strokeWidth: 3,
 
             fontFamily: "KS-Kohichi",
             align: "center",
             baseline: "middle",
-            fontSize: 60,
+            fontSize: 60
         };
-        var lb = phina.display.Label("３", param).addChildTo(this);
+        var lb = phina.display.Label(param).addChildTo(this);
         lb.setPosition(SC_W/2, -SC_H/2);
         lb.tweener.clear().wait(600)
             .call(function(){lb.text = "３";}).to({x: SC_W/2, y: -SC_H/2, alpha:1}, 1).to({x: SC_W/2, y: SC_H/2}, 600, "easeOutBounce").wait(100).to({alpha:0}, 100)
@@ -359,13 +357,8 @@ phina.define("ttb.MainScene", {
 
         if (point > 0) {
             this.score += point;
-            var lb = phina.display.Label(""+point, this.labelParam).addChildTo(this.itemLayer);
+            var lb = phina.display.Label(this.labelParam.$safe({text: ""+point})).addChildTo(this.itemLayer);
             lb.setPosition(p.x, p.y-30);
-            lb.fontFamily = "KS-Kohichi";
-            lb.align     = "center";
-            lb.baseline  = "middle";
-            lb.fontSize = 20;
-            lb.outlineWidth = 2;
             lb.tweener.moveBy(0,-30, 1500,"easeOutQuad").fadeOut(500).call(function(){lb.remove();});
         }
 
@@ -498,7 +491,7 @@ phina.define("ttb.MainScene", {
             player.action("miss");
             this.stop = true;
             var that = this;
-            var lb = phina.display.Label("ミス！！", this.labelParam)
+            var lb = phina.display.Label(this.labelParam.$safe({text: "ミス！！"}))
                 .addChildTo(this)
                 .setPosition(SC_W/2, -SC_H/2);
             lb.tweener.clear()
@@ -522,7 +515,7 @@ phina.define("ttb.MainScene", {
             player.action("goal");
             this.stop = true;
             var that = this;
-            var lb = phina.display.Label("ゴール！！", this.labelParam)
+            var lb = phina.display.Label(this.labelParam.$safe({text: "ゴール！！"}))
                 .addChildTo(this)
                 .setPosition(SC_W/2, -SC_H/2);
             lb.tweener.clear()

@@ -34,9 +34,9 @@ phina.define("ttb.Player", {
         this.origin.y = 0.9;
     },
 
-    update: function() {
+    update: function(e) {
         //基本アクション
-        if (!this.special) {
+        if (!this.special && e.ticker.frame % 3 == 0) {
             //移動してたらアニメーションする
             if (this.bx != this.x || this.by != this.y) {
                 this.index = (this.index + 1) % 3;
@@ -58,7 +58,7 @@ phina.define("ttb.Player", {
     },
     
     startup: function() {
-        this.visible = false;
+        this.visible = true;
         this.special = false;
         this.mapX = -1;
         this.mapY = -1;
@@ -91,13 +91,19 @@ phina.define("ttb.Egg", {
     init: function() {
         //親クラスの初期化
         this.superInit("egg", 32, 32);
-        this.setFrameIndex
+        this.setFrameIndex(0);
         this.origin.y = 0.9;
     },
-    update: function() {
+    update: function(e) {
+        if (e.ticker.frame % 3 == 0) {
+            this.frameIndex++;
+        }
     },
     
     startup: function() {
-        this.tweener.clear().wait(300).from({x: 0, y: -20},200,"easeOutQuint").from({x: 0, y: 20},150,"easeOutQuint");
+        this.tweener.clear()
+            .wait(300)
+            .from({x: 0, y: -20}, 200, "easeOutQuint")
+            .from({x: 0, y: 20}, 150, "easeOutQuint");
     }
 });
