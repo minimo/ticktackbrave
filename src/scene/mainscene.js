@@ -519,7 +519,7 @@ phina.define("ttb.MainScene", {
                 .addChildTo(this)
                 .setPosition(SC_W/2, -SC_H/2);
             lb.tweener.clear()
-                .move(SC_W/2, SC_H/2, 4000, "easeOutBounce")
+                .moveTo(SC_W/2, SC_H/2, 4000, "easeOutBounce")
                 .wait(1000)
                 .fadeOut(100)
                 .call(function(){lb.remove();});
