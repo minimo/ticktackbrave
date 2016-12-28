@@ -20,7 +20,7 @@ phina.define("ttb.Application", {
                     "panel2":   "assets/panel2.png",
                     "item":   	"assets/item.png",
                     "egg":      "assets/etc_egg.png",
-                    "player":   "assets/hiyoco_nomal_full.png",
+                    "player":   "assets/chara01.png",
                 },
                 font: {
                     "UbuntuMono":       "font/UbuntuMono-Bold.ttf",

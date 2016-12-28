@@ -24,11 +24,11 @@ phina.define("ttb.Player", {
         this.superInit("player", 32, 32);
         this.setFrameIndex(0);
 
-        this.frameRight = [15, 16, 17, 15];
-        this.frameLeft =  [12, 13, 14, 13];
+        this.frameRight = [ 6,  7,  8,  7];
+        this.frameLeft =  [ 3,  4,  5,  4];
         this.frameUp =    [ 9, 10, 11, 10];
-        this.frameDown =  [ 6,  7,  8,  7];
-        this.frameGoal =  [ 0,  1,  2,  3];
+        this.frameDown =  [ 0,  1,  2,  1];
+        this.frameGoal =  [18, 19, 20, 20];
         this.frame = this.frameDown;
         this.index = 0;
 
@@ -40,7 +40,7 @@ phina.define("ttb.Player", {
         if (!this.special && e.ticker.frame % 6 == 0) {
             //移動してたらアニメーションする
             if (this.bx != this.x || this.by != this.y) {
-                this.index = (this.index + 1) % 3;
+                this.index = (this.index + 1) % this.frame.length;
                 this.frameIndex = this.frame[this.index];
             }
         }

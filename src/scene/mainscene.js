@@ -31,7 +31,7 @@ phina.define("ttb.MainScene", {
         startPattern: 0,
 
         //状態フラグ
-        ready: true,   //準備ＯＫ
+        ready: true,    //準備ＯＫ
         start: false,   //ゲームスタート
         stop: false,
 
@@ -222,14 +222,6 @@ phina.define("ttb.MainScene", {
         this.player.bx = this.player.x;
         this.player.by = this.player.y;
         this.player.startup();
-
-        //スタート演出初期化
-        //ステージ開始時演出用
-        this.egg = ttb.Egg()
-            .setPosition(sx, sy)
-            .addChildTo(this.playerLayer);
-        this.egg.player = this.player;
-        this.egg.scaleX = -1;
 
         //ゴール準備
         if (!this.endless) {
