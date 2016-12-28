@@ -24,10 +24,11 @@ phina.define("ttb.Player", {
         this.superInit("player", 32, 32);
         this.setFrameIndex(0);
 
-        this.frameRight = [0, 1, 2];
-        this.frameLeft =  [0, 1, 2];
-        this.frameUp =    [0, 1, 2];
-        this.frameDown =  [0, 1, 2];
+        this.frameRight = [15, 16, 17, 15];
+        this.frameLeft =  [12, 13, 14, 13];
+        this.frameUp =    [ 9, 10, 11, 10];
+        this.frameDown =  [ 6,  7,  8,  7];
+        this.frameGoal =  [ 0,  1,  2,  3];
         this.frame = this.frameDown;
         this.index = 0;
 
@@ -36,7 +37,7 @@ phina.define("ttb.Player", {
 
     update: function(e) {
         //基本アクション
-        if (!this.special && e.ticker.frame % 3 == 0) {
+        if (!this.special && e.ticker.frame % 6 == 0) {
             //移動してたらアニメーションする
             if (this.bx != this.x || this.by != this.y) {
                 this.index = (this.index + 1) % 3;
@@ -47,11 +48,20 @@ phina.define("ttb.Player", {
         //左右の向き
         if (this.bx != this.x) {
             if (this.bx > this.x) {
-                this.setScale(1, 1);
+                this.frame = this.frameRight;
             } else {
-                this.setScale(-1, 1);
+                this.frame = this.frameLeft;
             }
         }
+        //上下の向き
+        if (this.by != this.y) {
+            if (this.by > this.y) {
+                this.frame = this.frameUp;
+            } else {
+                this.frame = this.frameDown;
+            }
+        }
+
         this.bx = this.x;
         this.by = this.y;
         this.time++;
@@ -69,6 +79,9 @@ phina.define("ttb.Player", {
         switch (name) {
             case "goal":
                 var that = this;
+                this.frame = this.frameGoal;
+                this.frameIndex = this.frame[0];
+                this.index = 0;
                 this.tweener.call(function(){that.special = true;});
                 this.tweener.moveBy(0, -20, 200,"easeOutQuint").moveBy(0, 20 ,150,"easeOutQuint").wait(300);
                 this.tweener.moveBy(0, -20, 200,"easeOutQuint").moveBy(0, 20 ,150,"easeOutQuint").wait(300);
@@ -95,8 +108,9 @@ phina.define("ttb.Egg", {
         this.origin.y = 0.9;
     },
     update: function(e) {
-        if (e.ticker.frame % 3 == 0) {
+        if (e.ticker.frame % 6 == 0) {
             this.frameIndex++;
+            if (this.frameIndex == 0) this.remove();
         }
     },
     
